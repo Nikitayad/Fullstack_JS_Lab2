@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Application</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .quiz-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            background-color: #f8cc3e;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .question {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .options label {
+            display: block;
+            margin-bottom: 5px;
+            cursor: pointer;
+        }
+
+        .options input[type="radio"] {
+            margin-right: 5px;
+        }
+
+        #result {
+            font-weight: bold;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <h1>Quiz Application</h1>
+        <form id="quiz-form">
+            <div class="question">
+                Question 1: What is the capital of France?
+            </div>
+            <div class="options">
+                <label><input type="radio" name="q1" value="paris"> Paris</label>
+                <label><input type="radio" name="q1" value="london"> London</label>
+                <label><input type="radio" name="q1" value="berlin"> Berlin</label>
+                <label><input type="radio" name="q1" value="madrid"> Madrid</label>
+            </div>
+
+            <div class="question">
+                Question 2: Which space mission has been recently launched by ISRO?
+            </div>
+            <div class="options">
+                <label><input type="radio" name="q2" value="Aditya"> Aditya</label>
+                <label><input type="radio" name="q2" value="Chandrayan"> Chandrayan</label>
+                <label><input type="radio" name="q2" value="apollo"> Apollo</label>
+                <label><input type="radio" name="q2" value="jupiter"> Jupiter</label>
+            </div>
+
+            <button type="submit">Submit</button>
+        </form>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        const quizForm = document.getElementById('quiz-form');
+        const resultDisplay = document.getElementById('result');
+
+        quizForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            let score = 0;
+
+            // Compare user's answers with correct answers
+            if (formData.get('q1') === 'paris') {
+                score++;
+            }
+            if (formData.get('q2') === 'Aditya') {
+                score++;
+            }
+
+            // Calculate percentage
+            const totalQuestions = quizForm.querySelectorAll('.question').length;
+            const percentage = (score / totalQuestions) * 100;
+
+            // Display the result
+            resultDisplay.textContent = `You scored ${score} out of ${totalQuestions}. (${percentage}%)`;
+        });
+    </script>
+</body>
+</html>
